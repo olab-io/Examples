@@ -59,8 +59,7 @@ public class TwitterSimpleSearch extends TimerTask
       .setOAuthConsumerKey(oAuthConsumerKey)
         .setOAuthConsumerSecret(oAuthConsumerSecret)
           .setOAuthAccessToken(oAuthAccessToken)
-            .setOAuthAccessTokenSecret(oAuthTokenSecret)
-              .setUseSSL(true);
+            .setOAuthAccessTokenSecret(oAuthTokenSecret);
     tf = new TwitterFactory(cb.build());
 
     try {
