@@ -89,19 +89,23 @@ public class TwitterSimpleStream extends StatusAdapter
     }
 
     twitterStream.addListener(this);
-    
-    FilterQuery fq = new FilterQuery();
-    
-    String[] queries = new String[queryTerms.size()];
-    
-    for (int i = 0; i < queryTerms.size(); ++i)
-    {
-      queries[i] = queryTerms.get(i);
+
+    if (queryTerms.size() > 0) {
+      String[] queries = new String[queryTerms.size()];
+      for (int i = 0; i < queryTerms.size(); ++i)
+      {
+        queries[i] = queryTerms.get(i);
+        System.out.println(queries[i]);
+      }
+
+      FilterQuery fq = new FilterQuery();
+      fq = fq.track(queries);
+      twitterStream.filter(fq);
     }
-      
-    twitterStream.filter(fq);
-    
-    twitterStream.sample();
+    else {
+      // no query terms so just sample
+      twitterStream.sample();
+    }
   }
 
   public void onStatus(Status status) {
