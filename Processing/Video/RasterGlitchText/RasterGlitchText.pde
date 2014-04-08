@@ -82,28 +82,33 @@ void draw() {
 
     currentSubtitle = (currentSubtitle + 1) % subtitles.size();
 
-    for (int i = 0; i < pg.width * pg.height; ++i) 
+    for (int x = 0; x < pg.width; ++x) 
     {
-      color pgColor = pg.pixels[i]; // The current color in the pg.      
-      float b = brightness(pgColor); // 0 - 255
-
-      if (b > 0)
+      for ( int y = 0; y < pg.height; ++y)
       {
-        color currentVideoPixel = video.pixels[currentVideoPixelIndex];
+        int i = y * pg.width + x;
 
-        int currR = (currentVideoPixel >> 16) & 0xFF;
-        int currG = (currentVideoPixel >> 8) & 0xFF;
-        int currB = currentVideoPixel & 0xFF;
+        color pgColor = pg.pixels[i]; // The current color in the pg.      
+        float b = brightness(pgColor); // 0 - 255
 
-        pg.pixels[i] = color(currR, currG, currB, b);
+        if (b > 0)
+        {
+          color currentVideoPixel = video.pixels[currentVideoPixelIndex];
 
-        currentVideoPixelIndex = (int)map(i, 0, pg.width * pg.height, 0, totalVideoPixels);
+          int currR = (currentVideoPixel >> 16) & 0xFF;
+          int currG = (currentVideoPixel >> 8) & 0xFF;
+          int currB = currentVideoPixel & 0xFF;
 
-        //        currentVideoPixelIndex = (currentVideoPixelIndex + 1) % totalVideoPixels;
-      }
-      else 
-      {
-        pg.pixels[i] = color(255, 0);
+          pg.pixels[i] = color(currR, currG, currB, b);
+
+          currentVideoPixelIndex = (int)map(i, 0, pg.width * pg.height, 0, totalVideoPixels);
+
+          //        currentVideoPixelIndex = (currentVideoPixelIndex + 1) % totalVideoPixels;
+        }
+        else 
+        {
+          pg.pixels[i] = color(255, 0);
+        }
       }
     }
     pg.updatePixels();
