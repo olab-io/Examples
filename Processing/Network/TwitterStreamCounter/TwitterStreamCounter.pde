@@ -75,9 +75,24 @@ void draw() {
   int x = 30;
   int y = 100;
   
+  int totalCount = 0;
+  for (Map.Entry count : counts.entrySet()) {
+    totalCount += (Integer)count.getValue();
+  }
+
+  
   // Using an enhanced loop to interate over each entry
   for (Map.Entry count : counts.entrySet()) {
+    int i =  (Integer)count.getValue();
+    
+    float level = (float) i / totalCount;
+    
     text(count.getKey() + " = " + count.getValue(), x, y);
+    
+    fill(255,127);
+    noStroke();
+    rect(0, y, level * width, 80);
+    
     y += 110;
   }
 }
